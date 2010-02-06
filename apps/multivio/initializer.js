@@ -67,6 +67,24 @@ Multivio.initializer = SC.Object.create(
       // interface of the application
       Multivio.getPath('mainPage.mainPane').append();
 
+
+      try {
+        undefined.unknownFunction();
+      }
+      catch (e) {
+        Multivio.logger.logException(e, 'my other message');
+        return;
+      }
+
+      /*
+      Multivio.errorController.setErrorData(
+          'some code', );
+      this._showErrorPage();
+      */
+
+
+
+
       this._showWaitingPage();
       
       var scenario = this.get('inputParameters').scenario;
@@ -222,7 +240,9 @@ Multivio.initializer = SC.Object.create(
     
     if (isError) {
       var nodes = Multivio.store.find(Multivio.CoreDocumentNode);
-      Multivio.errorController.initialize(nodes);
+      var errorData = nodes.firstObject().get('serverMessage');
+      Multivio.errorController.setErrorData(
+          errorData.errorCode, errorData.errorMessage);
       this._hideWaitingPage();
       this._showErrorPage();
     }

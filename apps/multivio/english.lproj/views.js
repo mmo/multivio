@@ -385,20 +385,34 @@ Multivio.views = SC.Page.design({
   errorView: SC.View.design({
     layout: { top: 0, bottom: 0, left: 0, right: 0 },
 
-    childViews: [  
-      SC.LabelView.design({
-        layout: { centerX: 0, centerY: 0, width: 700, height: 50 },
-        classNames: 'mvo_info_full',
-        contentBinding: 'Multivio.errorController.serverMessage',
-        contentValueKey: 'errorCode',
-        escapeHTML: NO
-      }),
-      SC.LabelView.design({
-        layout: { centerX: 0, centerY: 50, width: 700, height: 50 },
-        classNames: 'mvo_info_full',
-        contentBinding: 'Multivio.errorController.serverMessage',
-        contentValueKey: 'errorMessage',
-        escapeHTML: NO
+    childViews: [
+      SC.View.design({
+        layout: { centerX: 0, centerY: 0, width: 600, height: 260 },
+
+        childViews: [
+          SC.LabelView.design({
+            layout: { top: 20, height: 140, left: 20, right: 20 },
+            classNames: 'mvo_info_full mvo_info_text'.w(),
+            valueBinding: 'Multivio.errorController.mainText',
+            escapeHTML: NO
+          }),
+          SC.ButtonView.design({
+            layout: { top: 220, centerX: -110, width: 200},
+            title: '_See what happened'.loc(),
+            titleMinWidth: 200,
+            action: 'showDetails',
+            target: 'Multivio.errorController',
+            isDefault: YES
+          }),
+          SC.ButtonView.design({
+            title: '_Retry'.loc(),
+            titleMinWidth: 200,
+            layout: { top: 220, centerX: 110, width: 200},
+            action: 'relauchApplication',
+            target: 'Multivio.errorController',
+            isDefault: YES
+          })
+        ]
       })
     ]
   }).classNames('mvo_info_full shadow'.w()),

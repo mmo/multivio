@@ -227,12 +227,29 @@ body.sc-theme {
   color: #000;
 }
 
+.mvo_info_full h2 {
+  border: none;
+  padding: 0;
+  margin: 10px 0px;
+  letter-spacing: -1px;
+  font: normal 3.4em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  color: #000;
+}
+
 .mvo_info_full h3 {
   padding: 0;
   letter-spacing: 2px;
-  margin: -5px 6px;
+  margin: -5px 6px 10px 6px;
   font: 2.2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
   color: #808080;
+}
+
+.mvo_info_text p, ul, li {
+  padding: 0;
+  letter-spacing: 2px;
+  margin: 0;
+  font: 1.2em "Helvetica Neue", Arial, Helvetica, Geneva, sans-serif;
+  color: #777;
 }
 
 .mvo_info_full_progress {

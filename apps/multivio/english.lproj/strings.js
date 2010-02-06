@@ -20,6 +20,14 @@ SC.stringsFor('English', {
   '_The {TARGET} URL can link to': 'The {TARGET} URL can link to',
   '_A Dublin Core record': 'A Dublin Core record',
   '_A METS record (supported profiles only)': 'A METS record (supported profiles only)',
-  '_Examples': 'Examples'
+  '_Examples': 'Examples',
+
+  '_Oops, Something went wrong!': 'Oops, Something went wrong!',
+  '_The application detected a problem.': 'The application could not continue',
+  '_You can now:': 'You can now:',
+  '_See what happened': 'See what happened',
+  '_Retry': 'Retry',
+  '_Diagnosis': 'Diagnostic',
+  '_Ok': 'OK'
 
 });

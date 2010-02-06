@@ -31,10 +31,10 @@ Multivio.LOG_DEBUG = 10000;
 Multivio.logger = SC.Object.create(
 /** @scope Multivio.logger.prototype */ {
  
-  errorLogger: undefined,
-  warningLogger: undefined,
-  infoLogger: undefined,
-  debugLogger: undefined,
+  _errorLogger: undefined,
+  _warningLogger: undefined,
+  _infoLogger: undefined,
+  _debugLogger: undefined,
  
   loggers: [],
  
@@ -56,21 +56,21 @@ Multivio.logger = SC.Object.create(
     log4jsLogger.setLevel(Log4js.Level.OFF);
 
     // initialize loggers by level
-    this.errorLogger = Log4js.getLogger("error");
-    this.errorLogger.setLevel(Log4js.Level.ERROR);
-    this.loggers.push(this.errorLogger);
+    this._errorLogger = Log4js.getLogger("error");
+    this._errorLogger.setLevel(Log4js.Level.ERROR);
+    this.loggers.push(this._errorLogger);
     
-    this.warningLogger = Log4js.getLogger("warning");
-    this.warningLogger.setLevel(Log4js.Level.WARN);
-    this.loggers.push(this.warningLogger);
+    this._warningLogger = Log4js.getLogger("warning");
+    this._warningLogger.setLevel(Log4js.Level.WARN);
+    this.loggers.push(this._warningLogger);
     
-    this.infoLogger = Log4js.getLogger("info");
-    this.infoLogger.setLevel(Log4js.Level.INFO);
-    this.loggers.push(this.infoLogger);
+    this._infoLogger = Log4js.getLogger("info");
+    this._infoLogger.setLevel(Log4js.Level.INFO);
+    this.loggers.push(this._infoLogger);
     
-    this.debugLogger = Log4js.getLogger("debug");
-    this.debugLogger.setLevel(Log4js.Level.DEBUG);
-    this.loggers.push(this.debugLogger);
+    this._debugLogger = Log4js.getLogger("debug");
+    this._debugLogger.setLevel(Log4js.Level.DEBUG);
+    this.loggers.push(this._debugLogger);
  
     // create appenders according to the configuration in Multivio.CONFIG.log
     // (see file core.js)
@@ -130,7 +130,12 @@ Multivio.logger = SC.Object.create(
     @param {String} message
   */
   error: function (message) {
-    this.errorLogger.error(message);
+    try {
+      this._errorLogger.error(message);
+    }
+    catch (e) {
+      this.logException(e, 'Error writing log');
+    }
   },
 
   /**
@@ -141,7 +146,12 @@ Multivio.logger = SC.Object.create(
     @param {String} message
   */ 
   warning: function (message) {
-    this.warningLogger.warn(message);
+    try {
+      this._warningLogger.warn(message);
+    }
+    catch (e) {
+      this.logException(e, 'Error writing log');
+    }
   },
  
   /**
@@ -152,7 +162,12 @@ Multivio.logger = SC.Object.create(
     @param {String} message
   */
   info: function (message) {
-    this.infoLogger.info(message);
+    try {
+      this._infoLogger.info(message);
+    }
+    catch (e) {
+      this.logException(e, 'Error writing log');
+    }
   },
  
   /**
@@ -163,7 +178,12 @@ Multivio.logger = SC.Object.create(
     @param {String} message
   */
   debug: function (message) {
-    this.debugLogger.debug(message);
+    try {
+      this._debugLogger.debug(message);
+    }
+    catch (e) {
+      this.logException(e, 'Error writing log');
+    }
   },
  
   /**
@@ -173,11 +193,11 @@ Multivio.logger = SC.Object.create(
     
     @param {String} message
   */ 
-  logException: function (ex, customMessage) {
-    var exDetails = "\n\t{";
+  logException: function (ex, localMessage) {
+    var exDetails = "{\n";
     for (var key in ex) {
       if (ex.hasOwnProperty(key)) {
-        exDetails += "'%@': '%@',\n ".fmt(key, ex[key]);
+        exDetails += "\t## '%@': '%@',\n ".fmt(key, ex[key]);
       }
     }
     if (exDetails.length > 4) {
@@ -185,8 +205,82 @@ Multivio.logger = SC.Object.create(
       exDetails = exDetails.substring(0, exDetails.length - 4);
     }
     exDetails += "}\n";
-    this.error("Exception Caught %@ \"custom message\": \"%@\""
-    .loc(exDetails, customMessage));
+    var completeMessage = 
+        'Exception caught, with the following ' +
+        'local message: "%@"\n'.loc(localMessage) +
+        'Exception details: \n' +
+        '%@\n'.loc(exDetails);
+    try {
+
+      Multivio.errorController.setErrorData(
+          'some code', completeMessage);
+      Multivio.initializer._showErrorPage();
+
+
+      this.error(completeMessage);
+    }
+    catch (e) {
+      completeMessage =
+          'PANIC: could not output the following error message ' +
+          'in a convenient way.\n' +
+          completeMessage;
+      alert(completeMessage);
+    }
   }
  
 });
+
+
+// /**
+//   @class
+// 
+//   This is a Log4js-based appender customized for Multivio usage.
+// 
+//   It writes Log4js.LoggingEvent objects to the Multivio.errorController
+//   object, so that they can be used by the application's own error processing
+//   mechanism.
+// 
+//   @author mmo
+//   @extends Log4js.Appender
+//   @since 0.2.0
+//  */
+// Multivio.ErrorControllerAppender = function () {
+//   this.currentLine = 0;
+// };
+// Log4js.ErrorControllerAppender.prototype = Log4js.extend(new Log4js.Appender(), {  
+// 
+// 
+//   //categoryName, level, message, exception, logger
+// 
+//   /**
+//    * @param loggingEvent event to be logged
+//    * @see Log4js.Appender#doAppend
+//    */
+//   doAppend: function (loggingEvent) {
+//     var now = new Date();
+//     var lines = loggingEvent.message.split("\n");
+//     var headTag = document.getElementsByTagName("head")[0];
+// 
+//     for (var i = 1; i <= lines.length; i++) {
+//       var value = lines[i - 1];
+//       if (i === 1) {
+//         value = loggingEvent.level.toString() + ": " + value;
+//       } else {
+//         value = "> " + value;
+//       }
+// 
+//       var metaTag = document.createElement("meta");
+//       metaTag.setAttribute("name", "X-log4js:" + this.currentLine);
+//       metaTag.setAttribute("content", value);
+//       headTag.appendChild(metaTag);
+//       this.currentLine += 1;
+//     }
+//   },
+// 
+//   /** 
+//    * toString
+//    */
+//   toString: function () {
+//     return "Multivio.ErrorControllerAppender"; 
+//   }
+// });
