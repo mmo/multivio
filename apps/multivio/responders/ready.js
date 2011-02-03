@@ -26,7 +26,7 @@ Multivio.READY = SC.Responder.create(
   didBecomeFirstResponder: function () {
     Multivio.logger.debug('Multivio state is READY');
     Multivio.treeController.allowSelection(YES);
-    Multivio.getPath('views.mainContentView.content.innerMainContent').becomeFirstResponder();
+    //Multivio.getPath('views.mainContentView.content.innerMainContent').becomeFirstResponder();
   },
   
   /**

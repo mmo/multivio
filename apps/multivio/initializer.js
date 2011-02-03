@@ -218,13 +218,13 @@ Multivio.initializer = SC.Object.create(
       var metadata = {};
       metadata[name] = Multivio.CDM.FIXTURES.metadata[name];
       var firstUrl = Multivio.CDM.FIXTURES.logical[name];
-      metadata[firstUrl[0].file_position.url] = 
-          Multivio.CDM.FIXTURES.metadata[firstUrl[0].file_position.url];
+     /* metadata[firstUrl[0].file_position.url] = 
+          Multivio.CDM.FIXTURES.metadata[firstUrl[0].file_position.url];*/
       Multivio.CDM.fileMetadata = metadata;
       Multivio.sendAction('fileMetadataDidChange', name);
       
       // get and set logicalStructure
-      var logical = {};
+     /* var logical = {};
       logical[name] = Multivio.CDM.FIXTURES.logical[name];
       Multivio.CDM.logicalStructure = logical;
       
@@ -236,7 +236,7 @@ Multivio.initializer = SC.Object.create(
       // get and set size
       var size = {};
       size = Multivio.CDM.FIXTURES.size[name];
-      Multivio.CDM.imageSize = size;
+      Multivio.CDM.imageSize = size;*/
       
       Multivio.masterController.set('currentFile', name);
       Multivio.logger.debug('Fixtures "%@" setted'.fmt(name));

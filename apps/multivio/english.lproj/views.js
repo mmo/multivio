@@ -15,6 +15,7 @@ sc_require('views/metadata');
 sc_require('views/search');
 sc_require('views/navigation');
 sc_require('views/magnifying_glass');
+sc_require('views/video');
 sc_require('mixins/interface');
 
 
@@ -33,13 +34,15 @@ Multivio.views = SC.Page.design(
     acceptsFirstResponder: YES,
     isKeyResponder: YES,
 
-    controllers: ['zoomController', 'navigationController', 
+controllers: [ 'videoController'],
+    /*controllers: ['zoomController', 'navigationController', 
                   'searchController', 'selectionController', 
-                  'imageController',  'treeController', 'thumbnailController'],
+                  'imageController',  'treeController', 'thumbnailController'],*/
       
-    childViews: 'navigation bottomButtons leftButtons content'.w(),
+    //childViews: 'navigation bottomButtons leftButtons content'.w(),
+    childViews: 'leftButtons content'.w(),
     
-    navigation: Multivio.NavigationView.design({
+    /*navigation: Multivio.NavigationView.design({
       layout: { width: 220, height: 50, centerX: 24, top: 16},
       classNames: 'mvo-front-view',
       
@@ -64,7 +67,7 @@ Multivio.views = SC.Page.design(
           value: null
         })
       })
-    }),
+    }),*/
 
     bottomButtons: Multivio.FileButtonView.design({
       layout: {bottom: 20, centerX: 24, width: 728, height: 48},
@@ -392,7 +395,7 @@ Multivio.views = SC.Page.design(
       ]
     }),
 
-    content: SC.View.design({
+    /*content: SC.View.design({
       layout: { top: 0, bottom: 0, left: 48, right: 0 },
       classNames: 'outer_content_view',
       childViews: 'innerMainContent'.w(),
@@ -423,8 +426,42 @@ Multivio.views = SC.Page.design(
           }).classNames('highlight-pane'.w())
         }).classNames('image-and-highlight-container'.w())
       })
+    })*/
+    
+    //video
+    content: SC.View.design({
+      layout: { top: 0, bottom: 0, left: 48, right: 0 },
+      classNames: 'outer_content_view',
+      
+      childViews: 'playerContainer slider1'.w(),
+      slider1: SC.SimpleMediaControlsView.design({
+          layout: { centerX: 0, bottom: 50, width: 600, height: 100 },
+      }),
+
+      playerContainer: SC.View.design({
+        childViews: 'videoPlayer1 propertiesView1'.w(),
+        //childViews: 'videoPlayer1'.w(),
+        layout: { centerX: 0, top: 0, height: 600, width: 600},
+
+        videoPlayer1: SC.View.design({
+          childViews: 'canvasView'.w(),
+          classNames: 'videoWrapper',
+          layout: { left: 0, top: 0, width: 600, height: 300 },
+
+          canvasView: SC.VideoView.design({
+            layout: { top: 0, left: 0, right: 0, bottom: 0 },
+            degradeList: ['html5'],
+            classNames: 'reflector',
+            value: 'http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v'
+          })        
+        }),
+        propertiesView1: Multivio.videoView.design({
+          layout: { bottom:0, left: 0, width: 600, height: 200 },
+        })
+      }),
     })
   }),
+  
   
   // Thumbnails
   thumbnailPalette: SC.PalettePane.design({

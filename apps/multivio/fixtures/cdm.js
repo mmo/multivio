@@ -17,9 +17,16 @@ Multivio.CDM.FIXTURES = {
     },
     'http://purl.dlib.indiana.edu/iudl/brittlebooks/page/VAA1194-01-screen.gif': {
       mime: 'image/gif'
+    },
+    'video': {
+      creator:[],
+      language: 'ang',
+      mime: 'video',
+      title: 'test for video'
     }
   },
   logical: {
+    'video': null,
     'VAA': [
       {
         "file_position": {

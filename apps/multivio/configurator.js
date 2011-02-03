@@ -197,6 +197,12 @@ Multivio.configurator = SC.Object.create(
         {name: 'views.mainContentView', coord: 'A1:C2'}
       ],
       zoomScale: 'scaleForBitmapGraphics'
+    },
+    video: {
+      components: [
+        //{name: 'views.video', coord: 'A1:C2'}
+        {name: 'views.mainContentView', coord: 'A1:C2'}
+      ]
     }
   },
   
@@ -220,6 +226,11 @@ Multivio.configurator = SC.Object.create(
     if (mime.match('image/.*?')) {
       typeToReturn = 'image';
     }
+    
+    if (mime.match('video')) {
+      typeToReturn = 'video';
+    }
+    
     return typeToReturn;
   },
   
