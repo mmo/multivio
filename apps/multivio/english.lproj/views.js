@@ -16,6 +16,7 @@ sc_require('views/search');
 sc_require('views/navigation');
 sc_require('views/magnifying_glass');
 sc_require('views/video');
+sc_require('views/media_control');
 sc_require('mixins/interface');
 
 
@@ -34,7 +35,7 @@ Multivio.views = SC.Page.design(
     acceptsFirstResponder: YES,
     isKeyResponder: YES,
 
-controllers: [ 'videoController'],
+    controllers: [ 'videoController'],
     /*controllers: ['zoomController', 'navigationController', 
                   'searchController', 'selectionController', 
                   'imageController',  'treeController', 'thumbnailController'],*/
@@ -433,31 +434,35 @@ controllers: [ 'videoController'],
       layout: { top: 0, bottom: 0, left: 48, right: 0 },
       classNames: 'outer_content_view',
       
-      childViews: 'playerContainer slider1'.w(),
-      slider1: SC.SimpleMediaControlsView.design({
+      childViews: 'playerContainer slider'.w(),
+      /*slider1: SC.SimpleMediaControlsView.design({
           layout: { centerX: 0, bottom: 50, width: 600, height: 100 },
+      }),*/
+      slider: Multivio.mediaControlView.design({
+        layout: {bottom: 20, centerX: 24, width: 728, height: 48},
+        classNames: 'mvo-front-view',
       }),
 
       playerContainer: SC.View.design({
-        childViews: 'videoPlayer1 propertiesView1'.w(),
-        //childViews: 'videoPlayer1'.w(),
-        layout: { centerX: 0, top: 0, height: 600, width: 600},
+        //childViews: 'videoPlayer1 propertiesView1'.w(),
+        childViews: 'videoPlayer1'.w(),
+        layout: { centerX: 0, top: 0, height: 800, width: 800},
 
         videoPlayer1: SC.View.design({
           childViews: 'canvasView'.w(),
           classNames: 'videoWrapper',
-          layout: { left: 0, top: 0, width: 600, height: 300 },
+          layout: { left: 0, top: 0, width: 800, height: 500 },
 
           canvasView: SC.VideoView.design({
-            layout: { top: 0, left: 0, right: 0, bottom: 0 },
+            layout: { top: 50, left: 0, right: 0, bottom: 0 },
             degradeList: ['html5'],
             classNames: 'reflector',
             value: 'http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v'
           })        
         }),
-        propertiesView1: Multivio.videoView.design({
+        /*propertiesView1: Multivio.videoView.design({
           layout: { bottom:0, left: 0, width: 600, height: 200 },
-        })
+        })*/
       }),
     })
   }),

@@ -110,8 +110,8 @@ Multivio.FileButtonView = SC.View.extend(
     this.hideTimer = undefined;
     this.set('classNames', ['sc-view', 'mvo-front-view-invisible']);
     this.updateLayer();
-    Multivio.getPath('views.mainContentView.content.innerMainContent').
-        becomeFirstResponder();
+    /*Multivio.getPath('views.mainContentView.content.innerMainContent').
+        becomeFirstResponder();*/
   },
   
   /**

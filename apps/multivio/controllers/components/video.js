@@ -22,12 +22,13 @@ Multivio.videoController = SC.ObjectController.create(
     console.info('initialize '+url);
     Multivio.sendAction('addComponent', 'videoController');
     
-    var prop = Multivio.getPath('views.mainContentView.content.playerContainer.propertiesView1');
+    //var prop = Multivio.getPath('views.mainContentView.content.playerContainer.propertiesView1');
     var ttr = Multivio.getPath('views.mainContentView.content.playerContainer.videoPlayer1.canvasView');
-    prop.set('videoView', ttr);
+    //prop.set('videoView', ttr);
     
-    var sl = Multivio.getPath('views.mainContentView.content.slider1');
+    var sl = Multivio.getPath('views.mainContentView.content.slider');
       sl.set('target', ttr);
+      sl.set('videoView', ttr);
   }
   
 }) ;

@@ -682,3 +682,34 @@ width: 16px;
 height: 16px;
 }
 
+/*
+==========================================================================
+Tests for video
+For now, styles "borrowed" from Google Quick View
+==========================================================================
+*/
+.sc-media-controls .sc-view.sc-slider-view .sc-inner {
+    height: 10px;
+    left: 0;
+    right: 0;
+    top: 9px;
+}
+
+/*.sc-media-controls .sc-view.sc-slider-view .sc-track {
+    background: none repeat scroll 0 0 blue;
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 1;
+}*/
+
+.sc-media-controls .sc-view.sc-slider-view .sc-handle {
+    background: none repeat scroll 0 0 blue;
+    height: 10px;
+    margin-left: 0;
+    top: 0px;
+    width: 10px;
+    z-index: 10;
+}
