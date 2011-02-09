@@ -22,7 +22,7 @@ proxy '/local',
 # required libraries
 mode :all do
  config :all,
-   :required => [:sproutcore, :LOG],
+   :required => [:sproutcore, :LOG, :media],
    :theme_name => 'sc-theme mvo-dark-gray-theme'
 end
 
@@ -37,3 +37,10 @@ mode :test do
  config :all,
    :url_prefix => 'multivio/client_test'
 end
+
+# Special video test client
+mode :test_video do
+ config :all,
+   :url_prefix => 'multivio/client_test_video_20110211',
+   :load_fixtures => true
+end   

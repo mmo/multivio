@@ -333,9 +333,28 @@ body.mvo-white-theme     {
 .mvo-white-theme     .sc-button-view .img.native_size_new {
    background-image: sc_static("images/icons/24x24/100_percent_dark_24x24.png");
 }
-/* volume */
-.mvo-dark-gray-theme .sc-button-view .img.sound_new,
-.mvo-blue-theme      .sc-button-view .img.sound_new,
-.mvo-white-theme     .sc-button-view .img.sound_new {
-   background-image: sc_static("images/icons/24x24/sound_24x24.png");
+/* Full screen */
+.mvo-dark-gray-theme .sc-button-view .img.full_screen_new,
+.mvo-blue-theme      .sc-button-view .img.full_screen_new,
+.mvo-white-theme     .sc-button-view .img.full_screen_new {
+   background-image: sc_static("images/icons/24x24/full_screen_dark_24x24.png");
+}
+
+/* Play */
+.mvo-dark-gray-theme .sc-button-view .img.play_new,
+.mvo-blue-theme      .sc-button-view .img.play_new,
+.mvo-white-theme     .sc-button-view .img.play_new {
+   background-image: sc_static("images/icons/24x24/play_dark_24x24.png");
+}
+/* Pause */
+.mvo-dark-gray-theme .sc-button-view .img.pause_new,
+.mvo-blue-theme      .sc-button-view .img.pause_new,
+.mvo-white-theme     .sc-button-view .img.pause_new {
+   background-image: sc_static("images/icons/24x24/pause_dark_24x24.png");
+}
+/* Sound volume */
+.mvo-dark-gray-theme .sc-button-view .img.sound_volume_new,
+.mvo-blue-theme      .sc-button-view .img.sound_volume_new,
+.mvo-white-theme     .sc-button-view .img.sound_volume_new {
+   background-image: sc_static("images/icons/24x24/sound_volume_dark_24x24.png");
 }

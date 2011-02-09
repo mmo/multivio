@@ -302,13 +302,14 @@ Multivio.views = SC.Page.design(
         })
       })
     }),
-    
+
     leftButtons: SC.View.design({
-      layout: { top: 0, left: 4, bottom: 0, width: 40},
+      layout: { top: -120, left: 4, bottom: 0, width: 40},
       //classNames: 'mvo-front-view',
       classNames: 'workspace_black',
       
       childViews: [
+      /*
         SC.ButtonView.design({
           layout: { top: 10, centerX: 0, width: 32, height: 32 },
           titleMinWidth : 0,
@@ -345,6 +346,7 @@ Multivio.views = SC.Page.design(
           target: "Multivio.paletteController",
           action: "showSearch"
         }),
+        */
         SC.ButtonView.design({
           layout: { top: 130, centerX: 0, width: 32, height: 32 },
           titleMinWidth : 0,
@@ -439,25 +441,57 @@ Multivio.views = SC.Page.design(
           layout: { centerX: 0, bottom: 50, width: 600, height: 100 },
       }),*/
       slider: Multivio.mediaControlView.design({
-        layout: {bottom: 20, centerX: 24, width: 728, height: 48},
+        layout: { bottom: 20, centerX: 0, width: 740, height: 48 },
         classNames: 'mvo-front-view',
       }),
 
       playerContainer: SC.View.design({
         //childViews: 'videoPlayer1 propertiesView1'.w(),
         childViews: 'videoPlayer1'.w(),
-        layout: { centerX: 0, top: 0, height: 800, width: 800},
+        layout: { left: 0, right: 0, top: 0, bottom: 0},
 
         videoPlayer1: SC.View.design({
           childViews: 'canvasView'.w(),
           classNames: 'videoWrapper',
-          layout: { left: 0, top: 0, width: 800, height: 500 },
+          layout: { left: 0, top: 0, top: 0, bottom: 0 },
 
           canvasView: SC.VideoView.design({
-            layout: { top: 50, left: 0, right: 0, bottom: 0 },
+            layout: { left: 0, top: 0, top: 0, bottom: 0 },
             degradeList: ['html5'],
             classNames: 'reflector',
-            value: 'http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v'
+            valueBinding: 'Multivio.videoController.videoSource',
+            videoSizeDidChange: function () {
+              // try to show video in native size if it fits, otherwise adjust
+              // video size to available view size (keeping proportion)
+              var videoW = this.get('videoWidth');
+              var videoH = this.get('videoHeight');
+              var viewW = this.get('frame').width;
+              var viewH = this.get('frame').height;
+              if (viewW > 0 && viewH > 0 && videoW > 0 && videoH > 0) {
+                var newW = videoW;
+                var newH = videoH;
+                if (videoW > viewW || videoH > viewH) {
+                  var excessW = viewW - viewW;
+                  var excessH = viewH - viewW;
+                  if (excessW >= excessH) {
+                    newW = viewW;
+                    newH = parseInt(videoH * (viewW / videoW), 10);
+                  }
+                  else {
+                    newH = viewH;
+                    newW = parseInt(videoW * (viewH / videoH), 10);
+                  }
+                }
+        console.log('videoW=' + videoW);
+        console.log('videoH=' + videoH);
+        console.log('viewW=' + viewW);
+        console.log('viewH=' + viewH);
+        console.log('newW=' + newW);
+        console.log('newH=' + newH);
+                this.set('layout', { 
+                    centerX: 0, centerY: 0, width: newW, height: newH });
+              }
+            }.observes('videoWidth', 'videoHeight')
           })        
         }),
         /*propertiesView1: Multivio.videoView.design({

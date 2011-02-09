@@ -35,6 +35,7 @@ SC.stringsFor('English', {
   '_FullSize': 'Zoom to full size',
   '_FullWidth': 'Zoom to full width',
   '_NativeSize': 'Zoom to native size',
+  '_FullScreen': 'Enter full screen mode',
   '_Change theme to white': 'Change theme to white',
   '_Change theme to dark gray': 'Change theme to dark gray',
   '_Change theme to blue': 'Change theme to blue',

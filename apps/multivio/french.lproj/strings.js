@@ -35,6 +35,7 @@ SC.stringsFor('French', {
   '_FullSize': 'Afficher tout le contenu',
   '_FullWidth': 'Ajuster à la largeur',
   '_NativeSize': 'Afficher à la taille native',
+  '_FullScreen': 'Basculer en mode \"plein écran\"',
   '_Change theme to white': 'Choisir le thème blanc',
   '_Change theme to dark gray': 'Choisir le thème gris foncé',
   '_Change theme to blue': 'Choisir le thème bleu',

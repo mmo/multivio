@@ -22,7 +22,13 @@ Multivio.CDM.FIXTURES = {
       creator:[],
       language: 'ang',
       mime: 'video',
-      title: 'test for video'
+      title: 'Audio Test'
+    },
+    'audio': {
+      creator:[],
+      language: 'ang',
+      mime: 'audio',
+      title: 'Audio Test - \"Big Buck Bunny\"'
     }
   },
   logical: {
