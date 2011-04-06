@@ -204,13 +204,31 @@ Multivio.configurator = SC.Object.create(
       components: [{
           name: 'views.mainContentView',
           coord: 'A1:C2',
-          childern: [
+          children: [
               'views.leftButtons',
               'views.bottomButtons',
               'views.navigationInfo'
             ]
       }],
       zoomScale: 'scaleForBitmapGraphics'
+    },
+    video: {
+      components: [{
+          name: 'views.videoContentView',
+          coord: 'A1:C2',
+          children: [
+              'views.leftButtons'
+            ]
+      }]
+    },
+    audio: {
+      components: [{
+          name: 'views.audioContentView',
+          coord: 'A1:C2',
+          children: [
+              'views.leftButtons'
+            ]
+      }]
     }
   },
   
@@ -233,6 +251,14 @@ Multivio.configurator = SC.Object.create(
     
     if (mime.match('image/.*?')) {
       typeToReturn = 'image';
+    }
+
+    if (mime.match('video/?.*?')) {
+      typeToReturn = 'video';
+    }
+
+    if (mime.match('audio/.*?')) {
+      typeToReturn = 'audio';
     }
     return typeToReturn;
   },

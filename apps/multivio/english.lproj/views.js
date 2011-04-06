@@ -17,6 +17,7 @@ sc_require('views/metadata');
 sc_require('views/search');
 sc_require('views/navigation');
 sc_require('views/overview');
+sc_require('views/media_control');
 sc_require('mixins/interface');
 
 
@@ -105,6 +106,85 @@ Multivio.views = SC.Page.design(
     })
   }),
 
+  videoContentView: SC.View.design(Multivio.innerGradient, {
+    layout: { top: 0, bottom: 0, left: 0, right: 0 },
+    acceptsFirstResponder: YES,
+    isKeyResponder: YES,
+
+    controllers: [ 'videoController'],
+
+    childViews: 'content'.w(),
+
+    content: SC.View.design({
+      layout: { top: 0, bottom: 0, left: 48, right: 0 },
+      classNames: 'outer_content_view',
+      
+      childViews: 'playerContainer slider'.w(),
+      /*slider1: SC.SimpleMediaControlsView.design({
+          layout: { centerX: 0, bottom: 50, width: 600, height: 100 },
+      }),*/
+      slider: Multivio.MediaControlView.design({
+        layout: { bottom: 20, centerX: 0, width: 740, height: 48 },
+        classNames: 'mvo-front-view'
+      }),
+
+      playerContainer: SC.View.design({
+        //childViews: 'videoPlayer1 propertiesView1'.w(),
+        childViews: 'videoPlayer1'.w(),
+        layout: { left: 0, right: 0, top: 0, bottom: 0},
+
+        videoPlayer1: SC.View.design({
+          childViews: 'canvasView'.w(),
+          classNames: 'videoWrapper',
+          layout: { left: 0, top: 0, top: 0, bottom: 0 },
+
+          canvasView: SC.VideoView.design({
+            layout: { left: 0, top: 0, top: 0, bottom: 0 },
+            degradeList: ['html5'],
+            classNames: 'reflector',
+            valueBinding: 'Multivio.videoController.videoSource',
+            videoSizeDidChange: function () {
+              // try to show video in native size if it fits, otherwise adjust
+              // video size to available view size (keeping proportion)
+              var videoW = this.get('videoWidth');
+              var videoH = this.get('videoHeight');
+              var viewW = this.get('frame').width;
+              var viewH = this.get('frame').height;
+              if (viewW > 0 && viewH > 0 && videoW > 0 && videoH > 0) {
+                var newW = videoW;
+                var newH = videoH;
+                if (videoW > viewW || videoH > viewH) {
+                  var excessW = viewW - viewW;
+                  var excessH = viewH - viewW;
+                  if (excessW >= excessH) {
+                    newW = viewW;
+                    newH = parseInt(videoH * (viewW / videoW), 10);
+                  }
+                  else {
+                    newH = viewH;
+                    newW = parseInt(videoW * (viewH / videoH), 10);
+                  }
+                }
+                /*
+                console.log('videoW=' + videoW);
+                console.log('videoH=' + videoH);
+                console.log('viewW=' + viewW);
+                console.log('viewH=' + viewH);
+                console.log('newW=' + newW);
+                console.log('newH=' + newH);
+                */
+                this.set('layout', { 
+                    centerX: 0, centerY: 0, width: newW, height: newH });
+              }
+            }.observes('videoWidth', 'videoHeight')
+          })        
+        })
+        /*propertiesView1: Multivio.videoView.design({
+          layout: { bottom:0, left: 0, width: 600, height: 200 },
+        })*/
+      })
+    })
+  }),
 
   navigationInfo: Multivio.NavigationView.design({
     layout: { width: 220, height: 50, centerX: 24, top: 16},

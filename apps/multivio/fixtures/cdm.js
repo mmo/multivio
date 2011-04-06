@@ -17,9 +17,21 @@ Multivio.CDM.FIXTURES = {
     },
     'http://purl.dlib.indiana.edu/iudl/brittlebooks/page/VAA1194-01-screen.gif': {
       mime: 'image/gif'
+    },
+    'video1': { creator:[], language: 'ang', mime: 'video', title: 'Video Test - \"Big Buck Bunny\" (m4v)' },
+    'video2': { creator:[], language: 'ang', mime: 'video', title: 'Video Test - \"Big Buck Bunny\" (ogg)' },
+    'video3': { creator:[], language: 'ang', mime: 'video', title: 'Video Test - \"Arctic Giant\" (mp4)' },
+    'audio': {
+      creator:[],
+      language: 'ang',
+      mime: 'audio',
+      title: 'Audio Test'
     }
   },
   logical: {
+    'video1': [{ "file_position": { "index": null, "url": "http://mirror.cessen.com/blender.org/peach/trailer/trailer_iphone.m4v" }, "label": "Big Buck Bunny (m4v)" }],
+    'video2': [{ "file_position": { "index": null, "url": "http://mirror.cessen.com/blender.org/peach/trailer/trailer_400p.ogg" }, "label": "Big Buck Bunny (ogg)" }],
+    'video3': [{ "file_position": { "index": null, "url": "http://www.archive.org/download/arctic_giant/arctic_giant_512kb.mp4" }, "label": "Arctic Giant (mp4)" }],
     'VAA': [
       {
         "file_position": {
