@@ -19,7 +19,7 @@ Multivio.main = function main() {
   SC.ExceptionHandler.handleException = function (exception) {
     Multivio.errorController.initialize({
         'err_name':         'General Error',
-        'err_description':  exception.toString()
+        'err_description':  JSON.stringify(exception)//.toString()
       });
     Multivio.makeFirstResponder(Multivio.ERROR);
   };
